@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.kawaiilock.app.DeviceSecurityTest" tests="16" failures="0" errors="0" skipped="0" time="132.75" timestamp="2026-10-28T12:04:34">
+  <testcase name="wrongAttemptsPersistCooldown" classname="com.kawaiilock.app.DeviceSecurityTest" time="4.119" />
+  <testcase name="changingPinInvalidatesOldPin" classname="com.kawaiilock.app.DeviceSecurityTest" time="2.795" />
+  <testcase name="settingsSurviveRepositoryRecreation" classname="com.kawaiilock.app.DeviceSecurityTest" time="0.0" />
+  <testcase name="pinVerifierIsSaltedAndNotPlaintext" classname="com.kawaiilock.app.DeviceSecurityTest" time="2.109" />
+  <testcase name="rendererDeterministicAtEveryStageAndResolution" classname="com.kawaiilock.app.DeviceSecurityTest" time="0.319" />
+  <testcase name="protectionCannotEnableWithoutRecoveryPin" classname="com.kawaiilock.app.DeviceSecurityTest" time="0.55" />
+  <testcase name="rapidProtectedAppSwitchingKeepsOneOverlay" classname="com.kawaiilock.app.OverlayIntegrationTest" time="17.456" />
+  <testcase name="serviceReconnectFailsClosed" classname="com.kawaiilock.app.OverlayIntegrationTest" time="9.573" />
+  <testcase name="wrongCutAndBackCannotDismiss" classname="com.kawaiilock.app.OverlayIntegrationTest" time="13.59" />
+  <testcase name="returningToUnlockedAppRestoresTimeoutTimer" classname="com.kawaiilock.app.OverlayIntegrationTest" time="13.977" />
+  <testcase name="pinAuthenticatesRealOverlay" classname="com.kawaiilock.app.OverlayIntegrationTest" time="14.943" />
+  <testcase name="disabledShortcutCannotUnlock" classname="com.kawaiilock.app.OverlayIntegrationTest" time="8.283" />
+  <testcase name="rightUnlockAndSwitchRelock" classname="com.kawaiilock.app.OverlayIntegrationTest" time="12.629" />
+  <testcase name="timeoutRelocksForegroundApp" classname="com.kawaiilock.app.OverlayIntegrationTest" time="10.215" />
+  <testcase name="downwardSpecialCloverUnlocks" classname="com.kawaiilock.app.OverlayIntegrationTest" time="7.317" />
+  <testcase name="screenOffClearsAuthenticatedSession" classname="com.kawaiilock.app.OverlayIntegrationTest" time="11.993" />
+</testsuite>
