@@ -30,7 +30,7 @@ class OverlayIntegrationTest {
     private fun screenshot(name:String) {val dir=File(context.getExternalFilesDir(null),"qa").apply {mkdirs()};assertTrue(device.takeScreenshot(File(dir,"$name.png")));shell("mkdir -p /sdcard/Download/KawaiiLock-QA");shell("cp "+File(dir,"$name.png").absolutePath+" /sdcard/Download/KawaiiLock-QA/$name.png")}
     @Before fun setup() {
         repo=SettingsRepository(context);saved=repo.prefs.all.toMap();previousServices=shell("settings get secure enabled_accessibility_services");previousEnabled=shell("settings get secure accessibility_enabled")
-        repo.prefs.edit().clear().commit();PinAuthentication(repo).set(charArrayOf('4','8','2','6'));repo.protectedApps=setOf(target,"com.google.android.calendar");repo.put("enabled",true)
+        repo.prefs.edit().clear().commit();PinAuthentication(repo).set(charArrayOf('4','8','2','6'));repo.protectedApps=setOf(target,"com.android.chrome");repo.put("enabled",true)
         val services=previousServices.takeUnless {it=="null"||it.isBlank()}?.split(':').orEmpty().filterNot {it.startsWith("com.kawaiilock.app/")}
         shell("settings put secure enabled_accessibility_services "+(services+"com.kawaiilock.app/.ProtectedAppMonitor").joinToString(":"));shell("settings put secure accessibility_enabled 1");assertTrue("Accessibility setting must persist: "+shell("settings get secure enabled_accessibility_services"),shell("settings get secure enabled_accessibility_services").contains("com.kawaiilock.app"));pause(1400);device.pressHome();pause()
     }
@@ -46,4 +46,14 @@ class OverlayIntegrationTest {
     @Test fun pinAuthenticatesRealOverlay() {launch();val b=paper()!!.visibleBounds;val d=context.resources.displayMetrics.density;device.click(b.centerX(),b.bottom-(15*d).toInt());assertTrue("PIN panel must open",device.wait(Until.hasObject(By.text("KAWAIILOCK / PIN")),3000));for(digit in listOf("0","0","0","0")) device.findObject(By.text(digit)).click();device.findObject(By.text("Verify")).click();val rejected=device.wait(Until.hasObject(By.text("Incorrect PIN")),10000);screenshot("pin-after-wrong");assertTrue("Wrong PIN must be rejected. Labels: "+device.findObjects(By.clazz("android.widget.TextView")).map {it.text}.joinToString(" / "),rejected);for(digit in listOf("4","8","2","6")) device.findObject(By.text(digit)).click();device.findObject(By.text("Verify")).click();assertTrue("Correct PIN must remove panel",device.wait(Until.gone(By.text("KAWAIILOCK / PIN")),10000));assertNull(paper())}
     @Test fun timeoutRelocksForegroundApp() {repo.put("timeout",2f);pause();launch();swipeRight();awaitPaper()}
     @Test fun disabledShortcutCannotUnlock() {repo.put("shortcut",false);pause();launch();val b=paper()!!.visibleBounds;val d=context.resources.displayMetrics.density;val x=((28+(b.width()/d-106)*.3125f)*d).toInt();device.swipe(x,(b.centerY()-65*d).toInt(),x,(b.centerY()+45*d).toInt(),22);pause();assertNotNull(paper())}
+    @Test fun screenOffClearsAuthenticatedSession() {
+        launch();swipeRight();device.sleep();pause();device.wakeUp();device.pressMenu();pause();device.swipe(device.displayWidth/2,device.displayHeight-100,device.displayWidth/2,100,20);awaitPaper()
+    }
+    @Test fun serviceReconnectFailsClosed() {
+        launch();swipeRight();shell("settings delete secure enabled_accessibility_services");pause();shell("settings put secure enabled_accessibility_services com.kawaiilock.app/.ProtectedAppMonitor");shell("settings put secure accessibility_enabled 1");pause(1400);awaitPaper()
+    }
+    @Test fun rapidProtectedAppSwitchingKeepsOneOverlay() {
+        repeat(3) { launch();launch("com.android.chrome");assertEquals(1,device.findObjects(By.descContains("KawaiiLock paper lock")).size) }
+    }
+
 }
