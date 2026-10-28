@@ -42,7 +42,7 @@ private val Muted=Color(0xFF77756B)
 class MainActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent { MaterialTheme(colorScheme=lightColorScheme(primary=Green,background=Cream,surface=Cream,onSurface=Ink), typography=Typography(bodyLarge=androidx.compose.ui.text.TextStyle(fontSize=15.sp),titleLarge=androidx.compose.ui.text.TextStyle(fontFamily=FontFamily.Serif,fontSize=26.sp))) {
+        setContent { MaterialTheme(colorScheme=lightColorScheme(primary=Green,background=Cream,surface=Cream,onSurface=Ink,onSurfaceVariant=Muted,secondary=Color(0xFF5D704B),secondaryContainer=Color(0xFFE3E6D7),onSecondaryContainer=Ink,outline=Muted,outlineVariant=Color(0xFFE4DFD2),surfaceVariant=Color(0xFFECE7DA)), typography=Typography(bodyLarge=androidx.compose.ui.text.TextStyle(fontSize=15.sp),titleLarge=androidx.compose.ui.text.TextStyle(fontFamily=FontFamily.Serif,fontSize=26.sp))) {
             StationeryApp(SettingsRepository(this),if(BuildConfig.DEBUG) intent.getStringExtra("screen") else null,if(BuildConfig.DEBUG && intent.hasExtra("progress")) intent.getFloatExtra("progress",0f) else null)
         } }
     }
@@ -158,9 +158,10 @@ class MainActivity:ComponentActivity() {
     }; HorizontalDivider(color=Color(0xFFE4DFD2),thickness=.5.dp)
 }
 @Composable private fun Toggle(title:String,subtitle:String,value:Boolean,onChange:(Boolean)->Unit) {
-    Row(Modifier.fillMaxWidth().padding(vertical=10.dp),verticalAlignment=Alignment.CenterVertically) {Column(Modifier.weight(1f).padding(end=8.dp)) {Text(title,fontSize=14.sp);Text(subtitle,fontSize=11.sp,color=Muted)};Switch(value,onChange)}
+    Row(Modifier.fillMaxWidth().padding(vertical=10.dp),verticalAlignment=Alignment.CenterVertically) {Column(Modifier.weight(1f).padding(end=8.dp)) {Text(title,fontSize=14.sp);Text(subtitle,fontSize=11.sp,color=Muted)};Switch(value,onChange,colors=paperSwitchColors())}
     HorizontalDivider(color=Color(0xFFE4DFD2),thickness=.5.dp)
 }
+@Composable private fun paperSwitchColors()=SwitchDefaults.colors(checkedTrackColor=Green,checkedThumbColor=Cream,uncheckedTrackColor=Color(0xFFE4DFD2),uncheckedThumbColor=Muted,uncheckedBorderColor=Muted)
 @Composable private fun Range(title:String,value:Float,range:ClosedFloatingPointRange<Float>,detail:String="",onChange:(Float)->Unit) {
     Column(Modifier.padding(top=18.dp)) {Text(title,fontSize=14.sp);Slider(value,onChange,valueRange=range);if(detail.isNotEmpty()) Text(detail,fontSize=11.sp,color=Muted)}
 }
@@ -184,7 +185,7 @@ private data class AppInfo(val label:String,val pkg:String,val icon:android.grap
         Row(Modifier.fillMaxWidth().padding(vertical=8.dp),verticalAlignment=Alignment.CenterVertically) {
             AndroidView(factory={android.widget.ImageView(it)},update={it.setImageDrawable(app.icon)},modifier=Modifier.size(28.dp))
             Text(app.label,modifier=Modifier.weight(1f).padding(horizontal=12.dp),fontSize=14.sp)
-            Switch(app.pkg in repo.protectedApps,{checked->repo.protectedApps=if(checked) repo.protectedApps+app.pkg else repo.protectedApps-app.pkg})
+            Switch(app.pkg in repo.protectedApps,{checked->repo.protectedApps=if(checked) repo.protectedApps+app.pkg else repo.protectedApps-app.pkg},colors=paperSwitchColors())
         };HorizontalDivider(color=Color(0xFFE4DFD2),thickness=.5.dp)
     }}
 }

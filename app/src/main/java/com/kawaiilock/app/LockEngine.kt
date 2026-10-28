@@ -62,6 +62,7 @@ class RelockPolicy {
         return now-time >= grace && switch && previous!=pkg
     }
     fun isExpired(pkg:String, now:Long, timeout:Long):Boolean = unlocked[pkg]?.let { timeout>0 && now-it>=timeout } ?: true
+    fun timeUntilExpiry(pkg:String, now:Long, timeout:Long):Long = if(timeout<=0) 0 else unlocked[pkg]?.let { (timeout-(now-it)).coerceAtLeast(0) } ?: 0
     fun unlock(pkg:String, now:Long) { unlocked[pkg]=now }
     fun clear() { unlocked.clear() }
     fun forget(pkg:String) { unlocked.remove(pkg) }

@@ -54,7 +54,14 @@ class ProtectedAppMonitor:AccessibilityService() {
         }
         if(currentPackage!=pkg) { currentPackage=pkg; handler.removeCallbacks(expiry); if(lockedPackage!=pkg) hide() }
         val needs=policy.enter(pkg,SystemClock.elapsedRealtime(),settings.bool("switch",true),grace())
-        if(pkg in settings.protectedApps && (needs || policy.isExpired(pkg,SystemClock.elapsedRealtime(),timeout()))) show(pkg) else hide()
+        if(pkg in settings.protectedApps && (needs || policy.isExpired(pkg,SystemClock.elapsedRealtime(),timeout()))) show(pkg) else {
+            hide()
+            handler.removeCallbacks(expiry)
+            if(pkg in settings.protectedApps) {
+                val remaining=policy.timeUntilExpiry(pkg,SystemClock.elapsedRealtime(),timeout())
+                if(remaining>0) handler.postDelayed(expiry,remaining)
+            }
+        }
     }
     private fun grace()=(settings.number("grace",0f)*1000).toLong()
     private fun timeout()=(settings.number("timeout",0f)*1000).toLong()
