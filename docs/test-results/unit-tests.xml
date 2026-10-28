@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.kawaiilock.app.LockEngineTest" tests="27" skipped="0" failures="0" errors="0" timestamp="2026-10-28T12:01:33.811Z" time="0.034">
+  <testcase name="downwardCloverUnlocks" classname="com.kawaiilock.app.LockEngineTest" time="0.006" />
+  <testcase name="landmarkWithinOneSymbolOfRequestedPosition" classname="com.kawaiilock.app.LockEngineTest" time="0.002" />
+  <testcase name="successConsumedOnce" classname="com.kawaiilock.app.LockEngineTest" time="0.001" />
+  <testcase name="timeoutExpiresExactlyAtBoundary" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="scissorsMustBeTouched" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="leftAlwaysCuts" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="sidewaysSwipeRejected" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="verticalScissorsDoesNotUnlock" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="exactlyOneLandmarkAtEveryPosition" classname="com.kawaiilock.app.LockEngineTest" time="0.018" />
+  <testcase name="graceAllowsQuickReturn" classname="com.kawaiilock.app.LockEngineTest" time="0.001" />
+  <testcase name="cutOpeningGrowsBehindTip" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="reversalDoesNotUnlock" classname="com.kawaiilock.app.LockEngineTest" time="0.001" />
+  <testcase name="processRestartFailsClosed" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="returningToSessionKeepsOriginalDeadline" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="cloverDisabledDoesNothing" classname="com.kawaiilock.app.LockEngineTest" time="0.001" />
+  <testcase name="edgesDeterministicAndRestrained" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="upwardDoesNotUnlock" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="unlockedActivityTransitionsStayUnlocked" classname="com.kawaiilock.app.LockEngineTest" time="0.001" />
+  <testcase name="tapsDoNothing" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="rightUnlockIsDeliberate" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="screenOffClearLocksEverything" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="wrongCloverDoesNothing" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="cloverNeedsCrossing" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="switchDisabledKeepsSession" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="appSwitchRelocks" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="progressClamps" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+  <testcase name="cancellationResets" classname="com.kawaiilock.app.LockEngineTest" time="0.0" />
+</testsuite>
