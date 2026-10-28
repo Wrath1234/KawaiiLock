@@ -31,4 +31,6 @@ class LockEngineTest {
     @Test fun screenOffClearLocksEverything() {val p=RelockPolicy();p.unlock("a",100);p.clear();assertTrue(p.isExpired("a",101,0))}
     @Test fun processRestartFailsClosed() {val old=RelockPolicy();old.unlock("a",100);val fresh=RelockPolicy();assertTrue(fresh.enter("a",101,false,0))}
     @Test fun timeoutExpiresExactlyAtBoundary() {val p=RelockPolicy();p.unlock("a",100);assertFalse(p.isExpired("a",599,500));assertTrue(p.isExpired("a",600,500))}
+    @Test fun returningToSessionKeepsOriginalDeadline() {val p=RelockPolicy();p.unlock("a",100);p.enter("b",200,false,0);p.enter("a",300,false,0);assertEquals(300L,p.timeUntilExpiry("a",300,500));assertEquals(0L,p.timeUntilExpiry("a",600,500));assertEquals(0L,p.timeUntilExpiry("a",300,0))}
+
 }
