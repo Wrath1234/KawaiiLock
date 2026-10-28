@@ -56,4 +56,9 @@ class OverlayIntegrationTest {
         repeat(3) { launch();launch("com.android.chrome");assertEquals(1,device.findObjects(By.descContains("KawaiiLock paper lock")).size) }
     }
 
+    @Test fun returningToUnlockedAppRestoresTimeoutTimer() {
+        repo.put("switch",false);repo.put("timeout",6f);pause();launch();swipeRight();launch("com.android.chrome");swipeRight()
+        context.startActivity(context.packageManager.getLaunchIntentForPackage(target)!!.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));pause();assertNull("Session should still be authenticated",paper());awaitPaper()
+    }
+
 }
